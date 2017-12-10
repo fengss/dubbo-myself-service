@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="user-web" />
+
+    <!-- 注册中心暴露服务地址 -->
+     <dubbo:registry protocol="zookeeper" address="39.106.39.226:2181" />
+
+    <dubbo:monitor protocol="registry" />
+
+    <dubbo:annotation package="cn.coderss.web.controller"/>
+
+    <bean id="zipkinConfigurer"
+          class="cn.coderss.common.config.ZipkinConfig">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath*:brave.properties</value>
+            </list>
+        </property>
+    </bean>
+</beans>

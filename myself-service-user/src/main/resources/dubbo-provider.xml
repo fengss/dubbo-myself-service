@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <dubbo:application name="UserService"/>
+    <dubbo:protocol name="dubbo" port="20804" dispatcher="all" threadpool="fixed" threads="20"/>
+    <dubbo:monitor protocol="registry" />
+    <dubbo:registry address="zookeeper://39.106.39.226:2181" />
+
+    <dubbo:annotation package="cn.coderss.service.user.impl"/>
+
+    <bean id="zipkinConfigurer"
+          class="cn.coderss.common.config.ZipkinConfig">
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath*:brave.properties</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <import resource="classpath:/spring-mybatis.xml"/>
+</beans>

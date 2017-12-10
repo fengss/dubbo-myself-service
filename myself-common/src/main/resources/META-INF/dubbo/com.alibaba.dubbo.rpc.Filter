@@ -1,0 +1,2 @@
+traceFilters=cn.coderss.common.dubbo.DrpcServerInterceptor
+traceFilterc=cn.coderss.common.dubbo.DrpcClientInterceptor
